@@ -1,0 +1,28 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "todo list app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1",
+    "build": "webpack",
+    "gh-deploy": "git push origin :gh-pages && git subtree push --prefix dist origin gh-pages"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stefanpython/ToDo-List-Project.git"
+  },
+  "author": "stefanpython",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stefanpython/ToDo-List-Project/issues"
+  },
+  "homepage": "https://github.com/stefanpython/ToDo-List-Project#readme",
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0"
+  },
+  "dependencies": {
+    "date-fns": "^2.29.3"
+  }
+}

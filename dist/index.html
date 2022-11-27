@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/src/font-awesome-4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="/src/styles.css">
+    </head>
+    <body>
+        
+        <div class="content">
+
+            <div class="navbar responsive">
+
+                    <img id="cube" src="images/cube.png" alt="cube">
+                    <h2 id="moreToDo">DOMore To-Do List</h2>
+
+            </div>
+
+
+            <div class="main-content">
+
+                <div class="left-screen">
+                    <h3>Home</h3>
+                    <hr>
+                    <ul>
+                        <li><img src="images/tasks.png" alt="tasks"> All Tasks</li>
+                        <li><img src="images/today.png" alt="today"> Today</li>
+                        <li><img src="images/important.png" alt="important"> Important</li>
+                        <li><img src="images/complete.png" alt="finished"> Finished</li>
+                    </ul>
+
+                    <h3>Projects</h3>
+                    <hr>
+
+                    <div class="project-info" data-lists>
+
+                            <!-- <button class="button-project active-list" data-project-button="">
+                              <div class="left-project-panel">
+                                <i class="fa fa-tasks" aria-hidden="true"></i>
+                                <span style="font-size: 17px;margin-left: 10px;">Myproject1</span>
+                              </div>
+                              <div class="right-project-panel">
+                                <i class="fa fa-times xProject" aria-hidden="true"></i>
+                              </div>
+                            </button> -->
+                            
+                    </div>
+
+                    <button id="project-btn"><img id="addProjectImg" src="images/addP.png" alt=""><span id="add-project">Add Project</span></button>
+
+                    <form action="" class="projectInputDiv" data-new-list-form>
+                        
+                        <input type="text" name="projectAddBox" id="projectAddBox" data-new-list-input/>
+                        
+                        <div class="projectInput-btn">
+                            <button id="project-button-add">Add</button>
+                            <button id="project-button-cancel">Cancel</button>
+                        </div>
+                        
+                    </form>
+                    
+                </div>
+
+                <div class="right-screen">
+
+                    <div class="todo-list" data-list-display-container>
+
+                        <h1 id="rightSideTitle" data-list-title>Tasks</h1>
+                    
+                    <p>
+                        remaining tasks:
+                        <span class="task-count" data-list-count>1</span>
+                        
+                    </p>
+                    <hr style="width: 100%;">
+
+                    <div class="task-list" data-tasks>
+
+                        <!-- <div id="task-button">
+                            
+                            <div class="leftSide-task">
+                                <input type="checkbox" id="task-1" data-check-box>
+                                <p class="task-content">sdafasdf</p>
+                                <input type="text" class="input-task-name" data-input-task-name>
+                            </div>
+
+                            <div class="rightSide-task">
+                                <p class="due-date" id="due-date"></p>
+                                <input type="date" class="input-due-date" data-input-due-date>
+                                <i class="fa fa-times xTask" aria-hidden="true"></i>
+                            </div>
+
+                        </div> -->
+                        
+                    </div>
+                </div>
+                    
+                    
+                    <!-- Add task button -->
+                    <button class="button-add-task" id="button-add-task">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        Add Task
+                      </button>
+
+                      <form action="" class="add-task-popup" id="add-task-popup" data-new-task-form>
+
+                        <input class="input-add-task-popup" id="input-add-task-popup" type="text" data-new-task-input>
+
+                        <div class="add-task-popup-buttons">
+                            <button class="button-add-task-popup" id="button-add-task-popup">Add</button>
+                            <button class="button-cancel-task-popup" id="button-cancel-task-popup">Cancel</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            Copyright © 2022 Stefanpython &nbsp;<a href="https://github.com/stefanpython"><img class="git" style="border-radius: 30px;" width="30px" src="https://c.tenor.com/A15H8E1VUh8AAAAM/github-cat.gif"></a>
+        </footer>
+
+        <script src="main.js" async defer></script>
+    </body>
+</html>
+
+<!-- Illustration by <a href="https://icons8.com/illustrations/author/GrbQqWBEhaDS">Liam Moore</a> from <a href="https://icons8.com/illustrations">Ouch!</a> -->
+<!-- <a target="_blank" href="https://icons8.com/icon/111399/list">List</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->
+<!-- <a target="_blank" href="https://icons8.com/icon/113580/today">Today</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->
+<!-- <a target="_blank" href="https://icons8.com/icon/108641/done">Done</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->
+<!-- <a target="_blank" href="https://icons8.com/icon/64051/box-important">Box Important</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> -->

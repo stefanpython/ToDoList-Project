@@ -43,11 +43,16 @@ export function projectLogic() {
             const selectedList = lists.find(list => list.id === selectedListId)
             const selectedTask = selectedList.tasks.find(task => task.id === e.target.id)
             selectedTask.complete = e.target.checked
-            
             save()
             renderTaskCount(selectedList)
-            
-            console.log(selectedTask.complete, e.target.checked)
+        }
+
+        // Task delete button
+        if (e.target.tagName.toLowerCase() === 'i') {
+            const selectedList = lists.find(list => list.id === selectedListId)
+            selectedList.tasks = selectedList.tasks.filter(task => task.id !== e.target.dataset.deleteTaskList)
+            save()
+            render()
         }
     })
 
@@ -117,6 +122,8 @@ export function projectLogic() {
                 const taskDiv = document.createElement('div')
                 taskDiv.classList.add('task-button')
 
+                
+
                 // Display on html checked box checked after refreshing page
                 if (task.complete === true) {
                     const checkBox = document.getElementById(task.id)
@@ -130,7 +137,7 @@ export function projectLogic() {
                         <div class="rightSide-task">
                             <p class="due-date" id="due-date"></p>
                             <input type="date" class="input-due-date" data-input-due-date>
-                            <i class="fa fa-times xTask" aria-hidden="true"></i>
+                            <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
                         </div>
                     `;
                     
@@ -145,7 +152,7 @@ export function projectLogic() {
                         <div class="rightSide-task">
                             <p class="due-date" id="due-date"></p>
                             <input type="date" class="input-due-date" data-input-due-date>
-                            <i class="fa fa-times xTask" aria-hidden="true"></i>
+                            <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
                         </div>
                     `;
                 }

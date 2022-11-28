@@ -1,4 +1,7 @@
+import { format } from "date-fns"
+
 export function projectLogic() {
+    
     
     const listContainer = document.querySelector('[data-lists]')
     const newListForm = document.querySelector('[data-new-list-form]');
@@ -9,10 +12,11 @@ export function projectLogic() {
     const listTitleElement = document.querySelector('[data-list-title]');
     const listCountElement = document.querySelector('[data-list-count]');
     const tasksContainer = document.querySelector('[data-tasks]');
+    tasksContainer.classList.add('task-list')
 
     const newTaskFrom = document.querySelector('[data-new-task-form]');
     const newTaskInput = document.querySelector('[data-new-task-input]');
-
+    const newTaskDate = document.querySelector('[data-input-due-date]')
 
      // Retrieve list of objects from localStorage or empty list if there is none
      const LOCAL_STORAGE_LIST_KEY = 'task.lists';
@@ -39,12 +43,13 @@ export function projectLogic() {
         })
 
     tasksContainer.addEventListener('click', e => {
-        if (e.target.tagName.toLowerCase() === 'input') {
+        if (e.target.classList.contains('checkIt')) {
             const selectedList = lists.find(list => list.id === selectedListId)
             const selectedTask = selectedList.tasks.find(task => task.id === e.target.id)
             selectedTask.complete = e.target.checked
             save()
             renderTaskCount(selectedList)
+            
         }
 
         // Task delete button
@@ -53,6 +58,13 @@ export function projectLogic() {
             selectedList.tasks = selectedList.tasks.filter(task => task.id !== e.target.dataset.deleteTaskList)
             save()
             render()
+        }
+
+        if (e.target.classList.contains('input-due-date')) {
+            const pDate = document.querySelector('.due-date')
+            const inputDate = document.querySelector('.input-due-date')
+            console.log(inputDate.value)
+            pDate.innerText = inputDate.value
         }
     })
 
@@ -72,8 +84,10 @@ export function projectLogic() {
     newTaskFrom.addEventListener('submit', e => {
         e.preventDefault()
         const taskName = newTaskInput.value;
+        const dueDate = format(new Date(newTaskDate.value), 'MM/dd/yyyy')
         if (taskName == null || taskName === '') return
-        const task = createTask(taskName)
+        
+        const task = createTask(taskName, dueDate)
         newTaskInput.value = null;
         const selectedList = lists.find(list => list.id === selectedListId)
         selectedList.tasks.push(task);
@@ -87,8 +101,8 @@ export function projectLogic() {
         // Date.now().toString() - cool way to generate random number based on current time
     }
 
-    function createTask(name) {
-        return { id: Math.floor(Math.random() * 100000).toString(), name: name, complete: false }
+    function createTask(name, date) {
+        return { id: Math.floor(Math.random() * 100000).toString(), name: name, complete: false, date: date }
     }
 
 
@@ -122,8 +136,6 @@ export function projectLogic() {
                 const taskDiv = document.createElement('div')
                 taskDiv.classList.add('task-button')
 
-                
-
                 // Display on html checked box checked after refreshing page
                 if (task.complete === true) {
                     const checkBox = document.getElementById(task.id)
@@ -135,8 +147,7 @@ export function projectLogic() {
                         </div>
 
                         <div class="rightSide-task">
-                            <p class="due-date" id="due-date"></p>
-                            <input type="date" class="input-due-date" data-input-due-date>
+                            <p class="due-date" id="due-date">${task.date}</p>
                             <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
                         </div>
                     `;
@@ -150,12 +161,13 @@ export function projectLogic() {
                         </div>
     
                         <div class="rightSide-task">
-                            <p class="due-date" id="due-date"></p>
-                            <input type="date" class="input-due-date" data-input-due-date>
+                            <p class="due-date" id="due-date">${task.date}</p> 
                             <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
                         </div>
                     `;
                 }
+
+                
                 
                 tasksContainer.appendChild(taskDiv)
              })

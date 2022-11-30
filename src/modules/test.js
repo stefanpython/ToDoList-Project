@@ -156,3 +156,34 @@
 //     }
     
 //     tasksContainer.appendChild(taskDiv)
+
+
+
+
+
+// <!-- <div id="task-button">
+                            
+//                             <div class="leftSide-task">
+//                                 <input type="checkbox" id="task-1" data-check-box>
+//                                 <p class="task-content">sdafasdf</p>
+//                                 <input type="text" class="input-task-name" data-input-task-name>
+//                             </div>
+
+//                             <div class="rightSide-task">
+//                                 <p class="due-date" id="due-date"></p>
+//                                 <input type="date" class="input-due-date" data-input-due-date>
+//                                 <i class="fa fa-times xTask" aria-hidden="true"></i>
+//                             </div>
+
+//                         </div> -->
+
+
+// <!-- <button class="button-project active-list" data-project-button="">
+//                               <div class="left-project-panel">
+//                                 <i class="fa fa-tasks" aria-hidden="true"></i>
+//                                 <span style="font-size: 17px;margin-left: 10px;">Myproject1</span>
+//                               </div>
+//                               <div class="right-project-panel">
+//                                 <i class="fa fa-times xProject" aria-hidden="true"></i>
+//                               </div>
+//                             </button> -->

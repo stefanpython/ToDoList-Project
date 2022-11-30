@@ -35,6 +35,8 @@ export function projectLogic() {
 
     // Add event listener to home list container
     homeContainer.addEventListener('click', e => {
+        
+        // All Tasks button
         if (e.target.classList.contains('allTasks')) {
             clearElement(rightScreenContainer)
             renderAllTasks()
@@ -42,7 +44,71 @@ export function projectLogic() {
             newTaskFrom.style.display = 'none'
             hrLine.style.display = 'none'
         }
+
+        // Today button
+        if (e.target.classList.contains('todayTasks')) {
+            clearElement(rightScreenContainer)
+            renderAllTodayTasks()
+            addTaskBtn.style.display = 'none'
+            newTaskFrom.style.display = 'none'
+            hrLine.style.display = 'none'
+        }
     })
+
+    // Render today tasks
+    function renderTodayTasks(selectedList) {
+        selectedList.tasks.forEach(task => {
+        const taskDiv = document.createElement('div')
+        taskDiv.classList.add('task-button')
+
+        const todayDate = format(new Date(Date.now()), 'MM/dd/yyyy')
+
+        // Display on html checked box checked after refreshing page
+        if (task.date === todayDate) {
+            
+            taskDiv.innerHTML = `
+            <div class="leftSide-task">
+                <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                    <p class="task-content">${task.name}</p>
+                    <input type="text" class="input-task-name" data-input-task-name>
+                </div>
+
+                <div class="rightSide-task">
+                    <p class="due-date" id="due-date">Due date: ${task.date}</p>
+                    <i class="fa fa-times xToday" data-delete-task-list=${task.id} aria-hidden="true"></i>
+                </div>
+            `;  
+        } else {
+            taskDiv.classList.remove('task-button')
+        } 
+
+        tasksContainer.appendChild(taskDiv)
+     })
+    }
+
+
+    function renderAllTodayTasks() {
+        
+        const allTasksTitle = document.createElement('h1')
+        allTasksTitle.innerText = 'Today'
+        rightScreenContainer.append(allTasksTitle)
+
+        const lineHr = document.createElement('hr')
+        lineHr.style.width = '100%'
+        rightScreenContainer.appendChild(lineHr)
+        
+        
+        document.querySelector('.remaining-tasks').innerText = ''
+        document.querySelector('.task-count').innerText = ''
+        listTitleElement.innerText = ''
+        // addTaskBtn.innerHTML = ''
+        
+        lists.forEach(list => {
+            renderTodayTasks(list)
+        })
+    }
+
+
 
     // Function to render all tasks
     function renderAllTasks() {
@@ -170,6 +236,19 @@ export function projectLogic() {
         clearElement(tasksContainer)
         renderAllTasks()     
         }
+
+
+        // Today Tasks Delete 
+        if (e.target.classList.contains('xToday')) {
+            const selectedList = lists.find(list => list.id === selectedListId)
+            selectedList.tasks = selectedList.tasks.filter(task => task.id !== e.target.dataset.deleteTaskList)
+    
+            const notSelectedList = lists.find(list => list.id !== selectedListId)
+            notSelectedList.tasks = notSelectedList.tasks.filter(task => task.id !== e.target.dataset.deleteTaskList)
+            save()
+            clearElement(tasksContainer)
+            renderAllTodayTasks()    
+            }
     })
 
     //PROJECT FORM - Extract user input, create a list object and render it to the page container

@@ -26,29 +26,25 @@
             <div class="main-content">
 
                 <div class="left-screen">
-                    <h3>Home</h3>
-                    <hr>
-                    <ul>
-                        <li><img src="images/tasks.png" alt="tasks"> All Tasks</li>
-                        <li><img src="images/today.png" alt="today"> Today</li>
-                        <li><img src="images/important.png" alt="important"> Important</li>
-                        <li><img src="images/complete.png" alt="finished"> Finished</li>
-                    </ul>
+                    
+                    <div class="home-links">
+
+                        <h3>Home</h3>
+                        <hr>
+                        <ul>
+                            <li class="allTasks" data-home-id><img src="images/tasks.png" alt="tasks"> All Tasks</li>
+                            <li data-today><img src="images/today.png" alt="today"> Today</li>
+                            <li data-important><img src="images/important.png" alt="important"> Important</li>
+                            <li data-finished><img src="images/complete.png" alt="finished"> Finished</li>
+                        </ul>
+
+                    </div>
+                    
 
                     <h3>Projects</h3>
                     <hr>
 
                     <div class="project-info" data-lists>
-
-                            <!-- <button class="button-project active-list" data-project-button="">
-                              <div class="left-project-panel">
-                                <i class="fa fa-tasks" aria-hidden="true"></i>
-                                <span style="font-size: 17px;margin-left: 10px;">Myproject1</span>
-                              </div>
-                              <div class="right-project-panel">
-                                <i class="fa fa-times xProject" aria-hidden="true"></i>
-                              </div>
-                            </button> -->
                             
                     </div>
 
@@ -67,47 +63,37 @@
                     
                 </div>
 
+
                 <div class="right-screen">
+
 
                     <div class="todo-list" data-list-display-container>
 
                         <h1 id="rightSideTitle" data-list-title>Tasks</h1>
                     
-                    <p>
-                        remaining tasks:
-                        <span class="task-count" data-list-count>1</span>
-                        
+                    <p class="remaining-tasks">
+                        Remaining tasks:
                     </p>
-                    <hr style="width: 100%;">
+                    <span class="task-count" data-list-count>1</span>
+                    <hr id="hrLine" style="width: 100%;">
 
+                </div>
+                
                     <div class="task-list" data-tasks>
 
-                        <!-- <div id="task-button">
-                            
-                            <div class="leftSide-task">
-                                <input type="checkbox" id="task-1" data-check-box>
-                                <p class="task-content">sdafasdf</p>
-                                <input type="text" class="input-task-name" data-input-task-name>
-                            </div>
-
-                            <div class="rightSide-task">
-                                <p class="due-date" id="due-date"></p>
-                                <input type="date" class="input-due-date" data-input-due-date>
-                                <i class="fa fa-times xTask" aria-hidden="true"></i>
-                            </div>
-
-                        </div> -->
-                        
                     </div>
-                </div>
+                
                     
                     
-                    <!-- Add task button -->
-                    <button class="button-add-task" id="button-add-task">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                        Add Task
-                      </button>
+                    <div class="task-button-one">
+                        <!-- Add task button -->
+                        <button class="button-add-task" id="btn-add-task" data-add-task-btn>
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            Add Task
+                        </button>
 
+                    </div>
+                    
                       <form action="" class="add-task-popup" id="add-task-popup" data-new-task-form>
 
                         <input class="input-add-task-popup" id="input-add-task-popup" type="text" data-new-task-input required>

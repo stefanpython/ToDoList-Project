@@ -3,7 +3,6 @@ import { hr } from "date-fns/locale";
 
 export function projectLogic() {
     
-    
     const listContainer = document.querySelector('[data-lists]')
     const newListForm = document.querySelector('[data-new-list-form]');
     const newListInput = document.querySelector('[data-new-list-input]');
@@ -53,7 +52,73 @@ export function projectLogic() {
             newTaskFrom.style.display = 'none'
             hrLine.style.display = 'none'
         }
+
+        // Important button
+        if (e.target.classList.contains('importantTasks')) {
+            clearElement(rightScreenContainer)
+            renderAllImportantTasks()
+            addTaskBtn.style.display = 'none'
+            newTaskFrom.style.display = 'none'
+            hrLine.style.display = 'none'
+        }
     })
+
+
+    // Render important tasks
+    function renderImportantTasks(selectedList) {
+        selectedList.tasks.forEach(task => {
+        const taskDiv = document.createElement('div')
+        taskDiv.classList.add('task-button')
+
+        const todayDate = format(new Date(Date.now()), 'MM/dd/yyyy')
+
+        // Display on html checked box checked after refreshing page
+        if (task.important === true) {
+            
+            taskDiv.innerHTML = `
+            <div class="leftSide-task">
+                <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                    <p class="task-content">${task.name}</p>
+                    <input type="text" class="input-task-name" data-input-task-name>
+                </div>
+
+                <div class="rightSide-task">
+                    <p class="due-date" id="due-date">Due date: ${task.date}</p>
+                    <i class="fa fa-times xToday" data-delete-task-list=${task.id} aria-hidden="true"></i>
+                </div>
+            `;  
+        } else {
+            taskDiv.classList.remove('task-button')
+        } 
+
+        tasksContainer.appendChild(taskDiv)
+     })
+    }
+
+
+    function renderAllImportantTasks() {
+        
+        const allTasksTitle = document.createElement('h1')
+        allTasksTitle.innerText = 'Important Tasks'
+        rightScreenContainer.append(allTasksTitle)
+
+        const lineHr = document.createElement('hr')
+        lineHr.style.width = '100%'
+        rightScreenContainer.appendChild(lineHr)
+        
+        
+        document.querySelector('.remaining-tasks').innerText = ''
+        document.querySelector('.task-count').innerText = ''
+        listTitleElement.innerText = ''
+        // addTaskBtn.innerHTML = ''
+        
+        lists.forEach(list => {
+            renderImportantTasks(list)
+        })
+    }
+
+// -------------------------------------------------------------------
+
 
     // Render today tasks
     function renderTodayTasks(selectedList) {
@@ -90,7 +155,7 @@ export function projectLogic() {
     function renderAllTodayTasks() {
         
         const allTasksTitle = document.createElement('h1')
-        allTasksTitle.innerText = 'Today'
+        allTasksTitle.innerText = 'Today Tasks'
         rightScreenContainer.append(allTasksTitle)
 
         const lineHr = document.createElement('hr')
@@ -109,6 +174,7 @@ export function projectLogic() {
     }
 
 
+// ---------------------------------------------------------------
 
     // Function to render all tasks
     function renderAllTasks() {
@@ -180,7 +246,7 @@ export function projectLogic() {
             selectedListId = e.target.dataset.listId;
             document.querySelector('.remaining-tasks').innerText = 'Remaining Tasks:'
             addTaskBtn.style.display = 'block'
-            hrLine.style.display = 'none'
+            hrLine.style.display = 'block'
             save();
             render();
         }
@@ -198,6 +264,7 @@ export function projectLogic() {
         }
         })
 
+    // TASK Container for all lists
     tasksContainer.addEventListener('click', e => {
         if (e.target.classList.contains('checkIt')) {
             const selectedList = lists.find(list => list.id === selectedListId)
@@ -249,7 +316,27 @@ export function projectLogic() {
             clearElement(tasksContainer)
             renderAllTodayTasks()    
             }
+
+        // Important Tasks button
+        if (e.target.classList.contains('xImportant')) {
+            const selectedList = lists.find(list => list.id === selectedListId)
+            const selectedTask = selectedList.tasks.find(task => task.id === e.target.dataset.importantTask)
+            const star = document.querySelector(`i[data-important-task="${selectedTask.id}"]`)
+            
+            if (selectedTask.important === false) {
+                selectedTask.important = true
+                star.classList.remove('fa-star-o')
+                star.classList.add('fa-star')
+            } else {
+                selectedTask.important = false
+                star.classList.remove('fa-star')
+                star.classList.add('fa-star-o')
+            }
+            save()
+        }
+
     })
+
 
     //PROJECT FORM - Extract user input, create a list object and render it to the page container
     newListForm.addEventListener('submit', e => {
@@ -285,7 +372,7 @@ export function projectLogic() {
     }
 
     function createTask(name, date) {
-        return { id: Math.floor(Math.random() * 100000).toString(), name: name, complete: false, date: date }
+        return { id: Math.floor(Math.random() * 100000).toString(), name: name, complete: false, date: date, important: false }
     }
 
 
@@ -320,38 +407,66 @@ export function projectLogic() {
                 taskDiv.classList.add('task-button')
 
                 // Display on html checked box checked after refreshing page
-                if (task.complete === true) {
+                if (task.complete === true && task.important === false) {
                     const checkBox = document.getElementById(task.id)
                     taskDiv.innerHTML = `
                     <div class="leftSide-task">
-                            <input class="checkIt" type="checkbox" checked=true id=${task.id} data-check-box>
+                            <input class="checkIt" type="checkbox" checked id=${task.id} data-check-box>
                             <p class="task-content">${task.name}</p>
                             <input type="text" class="input-task-name" data-input-task-name>
                         </div>
 
                         <div class="rightSide-task">
-                            <p class="due-date" id="due-date">| Due date: ${task.date}</p>
+                        <i class="fa fa-star-o xImportant" data-important-task=${task.id} aria-hidden="true"></i>
+                            <p class="due-date" id="due-date"> Due date: ${task.date}</p>
                             <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
                         </div>
                     `;
                     
-                } else {
+                } else if (task.complete === true && task.important === true){
+                    taskDiv.innerHTML = `
+                    <div class="leftSide-task">
+                            <input class="checkIt" type="checkbox" checked id=${task.id} data-check-box>
+                            <p class="task-content">${task.name}</p>
+                            <input type="text" class="input-task-name" data-input-task-name>
+                        </div>
+    
+                        <div class="rightSide-task">
+                        <i class="fa fa-star xImportant" data-important-task=${task.id} aria-hidden="true"></i>
+                            <p class="due-date" id="due-date"> Due date: ${task.date}</p> 
+                            <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
+                        </div>
+                    `;
+                } else if (task.complete === false && task.important === true) {
                     taskDiv.innerHTML = `
                     <div class="leftSide-task">
                             <input class="checkIt" type="checkbox" id=${task.id} data-check-box>
                             <p class="task-content">${task.name}</p>
                             <input type="text" class="input-task-name" data-input-task-name>
                         </div>
-    
+
                         <div class="rightSide-task">
-                            <p class="due-date" id="due-date">| Due date: ${task.date}</p> 
+                        <i class="fa fa-star xImportant" data-important-task=${task.id} aria-hidden="true"></i>
+                            <p class="due-date" id="due-date"> Due date: ${task.date}</p>
+                            <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
+                        </div>
+                    `;
+                } else if (task.complete === false && task.important === false) {
+                    taskDiv.innerHTML = `
+                    <div class="leftSide-task">
+                            <input class="checkIt" type="checkbox" id=${task.id} data-check-box>
+                            <p class="task-content">${task.name}</p>
+                            <input type="text" class="input-task-name" data-input-task-name>
+                        </div>
+
+                        <div class="rightSide-task">
+                        <i class="fa fa-star-o xImportant" data-important-task=${task.id} aria-hidden="true"></i>
+                            <p class="due-date" id="due-date"> Due date: ${task.date}</p>
                             <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
                         </div>
                     `;
                 }
 
-                
-                
                 tasksContainer.appendChild(taskDiv)
              })
     }

@@ -42,6 +42,7 @@ export function projectLogic() {
             addTaskBtn.style.display = 'none'
             newTaskFrom.style.display = 'none'
             hrLine.style.display = 'none'
+            document.querySelector('.noTasks').innerHTML = ''
         }
 
         // Today button
@@ -51,6 +52,7 @@ export function projectLogic() {
             addTaskBtn.style.display = 'none'
             newTaskFrom.style.display = 'none'
             hrLine.style.display = 'none'
+            document.querySelector('.noTasks').innerHTML = ''
         }
 
         // Important button
@@ -60,6 +62,8 @@ export function projectLogic() {
             addTaskBtn.style.display = 'none'
             newTaskFrom.style.display = 'none'
             hrLine.style.display = 'none'
+            document.querySelector('.noTasks').innerHTML = ''
+            
         }
     })
 
@@ -83,11 +87,13 @@ export function projectLogic() {
                 </div>
 
                 <div class="rightSide-task">
+                <i class="fa fa-star xImportant" data-important-task=${task.id} aria-hidden="true"></i>
                     <p class="due-date" id="due-date">Due date: ${task.date}</p>
-                    <i class="fa fa-times xToday" data-delete-task-list=${task.id} aria-hidden="true"></i>
+                    <i class="fa fa-times xImportant" data-delete-task-list=${task.id} aria-hidden="true"></i>
                 </div>
             `;  
         } else {
+            
             taskDiv.classList.remove('task-button')
         } 
 
@@ -215,6 +221,7 @@ export function projectLogic() {
                 </div>
 
                 <div class="rightSide-task">
+                
                     <p class="due-date" id="due-date">Due date: ${task.date}</p>
                     <i class="fa fa-times xHome" data-delete-task-list=${task.id} aria-hidden="true"></i>
                 </div>
@@ -243,6 +250,7 @@ export function projectLogic() {
     // Make selectedListId equal to each individual listing id
     listContainer.addEventListener('click', e => {
         if (e.target.tagName.toLowerCase() === 'li') {
+            document.querySelector('.noTasks').innerHTML = ''
             selectedListId = e.target.dataset.listId;
             document.querySelector('.remaining-tasks').innerText = 'Remaining Tasks:'
             addTaskBtn.style.display = 'block'
@@ -327,13 +335,19 @@ export function projectLogic() {
                 selectedTask.important = true
                 star.classList.remove('fa-star-o')
                 star.classList.add('fa-star')
+                document.querySelector('.importantTasks').click()
+                document.querySelector('.button-project').click()
             } else {
                 selectedTask.important = false
                 star.classList.remove('fa-star')
                 star.classList.add('fa-star-o')
+                document.querySelector('.button-project').click()
             }
             save()
+            
         }
+
+       
 
     })
 
@@ -393,15 +407,27 @@ export function projectLogic() {
          if ( selectedListId == null) {
              listDisplayContainer.style.display = 'none'
          } else {
-             listDisplayContainer.style.display = ''
-             listTitleElement.innerText = selectedList.name
-             renderTaskCount(selectedList)
-             clearElement(tasksContainer)
-             renderTasks(selectedList)
+            listDisplayContainer.style.display = 'none'
          }
+
+         // Case if there are no projects/tasks
+         if (lists != [] && selectedList != null) {
+            listDisplayContainer.style.display = ''
+            listTitleElement.innerText = selectedList.name
+            renderTaskCount(selectedList)
+            clearElement(tasksContainer)
+            renderTasks(selectedList)
+         } else {
+            listDisplayContainer.style.display = 'none'
+            addTaskBtn.style.display = 'none'
+            const rightTaskContainer = document.querySelector('.noTasks').innerHTML = 'Hurray! No tasks yeey^.^'
+            
+         }
+         
     }
 
     function renderTasks(selectedList) {
+
                 selectedList.tasks.forEach(task => {
                 const taskDiv = document.createElement('div')
                 taskDiv.classList.add('task-button')
@@ -466,6 +492,8 @@ export function projectLogic() {
                         </div>
                     `;
                 }
+
+                
 
                 tasksContainer.appendChild(taskDiv)
              })

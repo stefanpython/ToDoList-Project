@@ -81,7 +81,7 @@ export function projectLogic() {
             
             taskDiv.innerHTML = `
             <div class="leftSide-task">
-                <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                <i class="fa fa-thumb-tack fa-lg" aria-hidden="true"></i>
                     <p class="task-content">${task.name}</p>
                     <input type="text" class="input-task-name" data-input-task-name>
                 </div>
@@ -134,7 +134,7 @@ export function projectLogic() {
             
             taskDiv.innerHTML = `
             <div class="leftSide-task">
-                <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                <i class="fa fa-thumb-tack fa-lg" aria-hidden="true"></i>
                     <p class="task-content">${task.name}</p>
                     <input type="text" class="input-task-name" data-input-task-name>
                 </div>
@@ -191,7 +191,7 @@ export function projectLogic() {
             
             taskDiv.innerHTML = `
             <div class="leftSide-task">
-                <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                <i class="fa fa-thumb-tack fa-lg" aria-hidden="true"></i>
                     <p class="task-content">${task.name}</p>
                     <input type="text" class="input-task-name" data-input-task-name>
                 </div>
@@ -267,7 +267,7 @@ export function projectLogic() {
             const checkBox = document.getElementById(task.id)
             taskDiv.innerHTML = `
             <div class="leftSide-task">
-                <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                <i class="fa fa-thumb-tack fa-lg" aria-hidden="true"></i>
                     <p class="task-content">${task.name}</p>
                     <input type="text" class="input-task-name" data-input-task-name>
                 </div>
@@ -282,7 +282,7 @@ export function projectLogic() {
         } else {
             taskDiv.innerHTML = `
             <div class="leftSide-task">
-                    <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                    <i class="fa fa-thumb-tack fa-lg" aria-hidden="true"></i>
                     <p class="task-content">${task.name}</p>
                     <input type="text" class="input-task-name" data-input-task-name>
                 </div>
@@ -506,7 +506,7 @@ export function projectLogic() {
                         </div>
 
                         <div class="rightSide-task">
-                        <i class="fa fa-star-o xImportant" data-important-task=${task.id} aria-hidden="true"></i>
+                        <i class="fa fa-star-o fa-lg xImportant" data-important-task=${task.id} aria-hidden="true"></i>
                             <p class="due-date" id="due-date"> Due date: ${task.date}</p>
                             <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
                         </div>
@@ -521,7 +521,7 @@ export function projectLogic() {
                         </div>
     
                         <div class="rightSide-task">
-                        <i class="fa fa-star xImportant" data-important-task=${task.id} aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg xImportant" data-important-task=${task.id} aria-hidden="true"></i>
                             <p class="due-date" id="due-date"> Due date: ${task.date}</p> 
                             <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
                         </div>
@@ -535,7 +535,7 @@ export function projectLogic() {
                         </div>
 
                         <div class="rightSide-task">
-                        <i class="fa fa-star xImportant" data-important-task=${task.id} aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg xImportant" data-important-task=${task.id} aria-hidden="true"></i>
                             <p class="due-date" id="due-date"> Due date: ${task.date}</p>
                             <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
                         </div>
@@ -549,7 +549,7 @@ export function projectLogic() {
                         </div>
 
                         <div class="rightSide-task">
-                        <i class="fa fa-star-o xImportant" data-important-task=${task.id} aria-hidden="true"></i>
+                        <i class="fa fa-star-o fa-lg xImportant" data-important-task=${task.id} aria-hidden="true"></i>
                             <p class="due-date" id="due-date"> Due date: ${task.date}</p>
                             <i class="fa fa-times xTask" data-delete-task-list=${task.id} aria-hidden="true"></i>
                         </div>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari&family=Concert+One&family=Space+Grotesk&family=Zen+Dots&display=swap');
+
 body {
     margin: 0px;
 }
@@ -7,8 +9,7 @@ html, body, .content, .main-content {
 }
 
 .navbar {
-    background: rgb(85,80,175);
-    background: linear-gradient(336deg, rgba(15, 200, 190, 1) 0%, rgba(0, 1, 13, 1) 74%);
+  background: linear-gradient(336deg, rgba(15, 200, 190, 1) 0%, rgba(15, 200, 190, 1) 25%, rgba(0, 1, 13, 1) 74%);
   height: 80px;
   width: 100%;
 }
@@ -19,6 +20,7 @@ html, body, .content, .main-content {
     margin-left: 90px;
     margin-top: -55px;
     display: flex;
+    font-family: 'Zen Dots', cursive;
 }
 
 #cube {
@@ -61,6 +63,11 @@ ul {
 
 h3 {
     font-size: 30px;
+    font-family: 'Anek Devanagari', sans-serif;
+}
+
+h1 {
+    font-family: 'Anek Devanagari', sans-serif;
 }
 
 li {
@@ -68,6 +75,12 @@ li {
     padding: 5px;
     display: flex;
     align-items: center;
+    font-family: 'Anek Devanagari', sans-serif;
+}
+
+p {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
 }
 
 li > img {
@@ -219,7 +232,7 @@ ul > li:hover {
 .task-button:hover {
     background-color: rgba(179, 179, 179, 0.212);
 }
-
+s
 .project-info {
     display: flex;
     justify-content: center;
@@ -234,18 +247,19 @@ ul > li:hover {
     height: 35px;
     align-items: center;
     border: none;
-    background-color: azure;
+    background: radial-gradient(circle at 50% 55%, rgba(170, 170, 0, 0.42) 0%, rgba(163, 38, 0, 0.63) 100%);
     width: 100%;
     justify-content: space-between;
+    border-radius: 10px;
 }
 
-#project-btn:hover, .button-add-task:hover {
+#project-btn:hover, .button-add-task:hover, li:hover {
     transform: scale(1.1);
     transition: 0.7s;
 }
 
 .fa-times:hover {
-    transform: scale(1.1);
+    transform: scale(1.7);
     transition: 0.7s;
 }
 
@@ -266,12 +280,24 @@ li.active-list {
 
 .task-count {
     display: flex;
-    margin-left: 120px;
-    margin-top: -34px;
+    margin-left: 170px;
+    margin-top: -43px;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 .xImportant {
-    color: yellow;
+    color: rgb(245, 201, 6);
+    margin-right: 10px;
+}
+
+.fa-thumb-tack {
+    color: rebeccapurple;
+}
+
+.due-date {
+    background-color: rgba(165, 42, 42, 0.178);
+    border-radius: 5px;
+    color: rgb(7, 7, 7);
 }
 
 footer {

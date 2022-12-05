@@ -37,35 +37,90 @@ export function projectLogic() {
         
         // All Tasks button
         if (e.target.classList.contains('allTasks')) {
-            clearElement(rightScreenContainer)
-            renderAllTasks()
-            addTaskBtn.style.display = 'none'
-            newTaskFrom.style.display = 'none'
-            hrLine.style.display = 'none'
-            document.querySelector('.noTasks').innerHTML = ''
+            clearAndHide()
+            renderAllTasks() 
         }
 
         // Today button
         if (e.target.classList.contains('todayTasks')) {
-            clearElement(rightScreenContainer)
+            clearAndHide()
             renderAllTodayTasks()
-            addTaskBtn.style.display = 'none'
-            newTaskFrom.style.display = 'none'
-            hrLine.style.display = 'none'
-            document.querySelector('.noTasks').innerHTML = ''
         }
 
         // Important button
         if (e.target.classList.contains('importantTasks')) {
-            clearElement(rightScreenContainer)
+            clearAndHide()
             renderAllImportantTasks()
-            addTaskBtn.style.display = 'none'
-            newTaskFrom.style.display = 'none'
-            hrLine.style.display = 'none'
-            document.querySelector('.noTasks').innerHTML = ''
-            
+        }
+
+        // Finished button
+        if (e.target.classList.contains('finishedTasks')) {
+            clearAndHide()
+            renderAllFinishedTasks()
         }
     })
+
+
+    function clearAndHide() {
+        clearElement(rightScreenContainer)
+        addTaskBtn.style.display = 'none'
+        newTaskFrom.style.display = 'none'
+        hrLine.style.display = 'none'
+        document.querySelector('.noTasks').innerHTML = ''
+    }
+
+
+    // Render finished tasks
+    function renderFinishedTasks(selectedList) {
+        selectedList.tasks.forEach(task => {
+        const taskDiv = document.createElement('div')
+        taskDiv.classList.add('task-button')
+
+        // Display on html checked box checked after refreshing page
+        if (task.complete === true) {
+            
+            taskDiv.innerHTML = `
+            <div class="leftSide-task">
+                <i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                    <p class="task-content">${task.name}</p>
+                    <input type="text" class="input-task-name" data-input-task-name>
+                </div>
+
+                <div class="rightSide-task">
+                    <p class="due-date" id="due-date">Due date: ${task.date}</p>
+                    <i class="fa fa-times deleteImportant" data-delete-task-list=${task.id} aria-hidden="true"></i>
+                </div>
+            `;  
+        } else {
+            
+            taskDiv.classList.remove('task-button')
+        } 
+
+        tasksContainer.appendChild(taskDiv)
+     })
+    }
+
+
+    function renderAllFinishedTasks() {
+        
+        const allTasksTitle = document.createElement('h1')
+        allTasksTitle.innerText = 'Finished Tasks'
+        rightScreenContainer.append(allTasksTitle)
+
+        const lineHr = document.createElement('hr')
+        lineHr.style.width = '100%'
+        rightScreenContainer.appendChild(lineHr)
+        
+        
+        document.querySelector('.remaining-tasks').innerText = ''
+        document.querySelector('.task-count').innerText = ''
+        listTitleElement.innerText = ''
+        // addTaskBtn.innerHTML = ''
+        
+        lists.forEach(list => {
+            renderFinishedTasks(list)
+        })
+    }
 
 
     // Render important tasks
@@ -73,8 +128,6 @@ export function projectLogic() {
         selectedList.tasks.forEach(task => {
         const taskDiv = document.createElement('div')
         taskDiv.classList.add('task-button')
-
-        const todayDate = format(new Date(Date.now()), 'MM/dd/yyyy')
 
         // Display on html checked box checked after refreshing page
         if (task.important === true) {
@@ -87,9 +140,8 @@ export function projectLogic() {
                 </div>
 
                 <div class="rightSide-task">
-                <i class="fa fa-star xImportant" data-important-task=${task.id} aria-hidden="true"></i>
                     <p class="due-date" id="due-date">Due date: ${task.date}</p>
-                    <i class="fa fa-times xImportant" data-delete-task-list=${task.id} aria-hidden="true"></i>
+                    <i class="fa fa-times deleteImportant" data-delete-task-list=${task.id} aria-hidden="true"></i>
                 </div>
             `;  
         } else {
@@ -323,7 +375,20 @@ export function projectLogic() {
             save()
             clearElement(tasksContainer)
             renderAllTodayTasks()    
-            }
+        }
+
+        // Important Tasks Delete 
+        if (e.target.classList.contains('deleteImportant')) {
+            const selectedList = lists.find(list => list.id === selectedListId)
+            selectedList.tasks = selectedList.tasks.filter(task => task.id !== e.target.dataset.deleteTaskList)
+    
+            const notSelectedList = lists.find(list => list.id !== selectedListId)
+            notSelectedList.tasks = notSelectedList.tasks.filter(task => task.id !== e.target.dataset.deleteTaskList)
+            save()
+            clearElement(tasksContainer)
+            renderAllImportantTasks()   
+        }
+
 
         // Important Tasks button
         if (e.target.classList.contains('xImportant')) {
@@ -335,19 +400,14 @@ export function projectLogic() {
                 selectedTask.important = true
                 star.classList.remove('fa-star-o')
                 star.classList.add('fa-star')
-                document.querySelector('.importantTasks').click()
-                document.querySelector('.button-project').click()
             } else {
                 selectedTask.important = false
                 star.classList.remove('fa-star')
                 star.classList.add('fa-star-o')
-                document.querySelector('.button-project').click()
             }
             save()
             
         }
-
-       
 
     })
 
@@ -359,6 +419,7 @@ export function projectLogic() {
         if (listName == null || listName === '') return
         const list = createList(listName);
         newListInput.value = null;
+        newListForm.style.display = 'none'
         lists.push(list);
         save();
         render();
@@ -369,6 +430,8 @@ export function projectLogic() {
         e.preventDefault()
         const taskName = newTaskInput.value;
         const dueDate = format(new Date(newTaskDate.value), 'MM/dd/yyyy')
+        newTaskFrom.style.display = 'none'
+        document.querySelector(".input-due-date").value = ''
         if (taskName == null || taskName === '') return
         
         const task = createTask(taskName, dueDate)
@@ -420,7 +483,7 @@ export function projectLogic() {
          } else {
             listDisplayContainer.style.display = 'none'
             addTaskBtn.style.display = 'none'
-            const rightTaskContainer = document.querySelector('.noTasks').innerHTML = 'Hurray! No tasks yeey^.^'
+            const noTasks = document.querySelector('.noTasks').innerHTML = '<center><h1>Hurray! No tasks yeey ^.^<h1><center>'
             
          }
          

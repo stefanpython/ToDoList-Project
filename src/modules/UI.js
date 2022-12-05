@@ -29,6 +29,8 @@ export function displayInputs() {
         })
     }
 
+    
+
     return { addTaskButton, addProjectButton }
     
 }

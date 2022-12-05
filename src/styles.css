@@ -7,7 +7,8 @@ html, body, .content, .main-content {
 }
 
 .navbar {
-  background-color: #333;
+    background: rgb(85,80,175);
+    background: linear-gradient(336deg, rgba(15, 200, 190, 1) 0%, rgba(0, 1, 13, 1) 74%);
   height: 80px;
   width: 100%;
 }
@@ -18,9 +19,7 @@ html, body, .content, .main-content {
     margin-left: 90px;
     margin-top: -55px;
     display: flex;
-   
 }
-
 
 #cube {
     width: auto;
@@ -139,11 +138,12 @@ ul > li:hover {
 .task-button {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin-top: 10px;
+    margin-top: 5px;
     background-color: rgb(247, 247, 247);
     border: 1px groove black;
     border-radius: 10px;
     padding: 0 5px 0 5px;
+    /* box-shadow: 5px 5px 8px 0 rgb(57, 184, 45); */
 }
 
 .input-task-name {
@@ -270,7 +270,9 @@ li.active-list {
     margin-top: -34px;
 }
 
-
+.xImportant {
+    color: yellow;
+}
 
 footer {
     display: flex;
